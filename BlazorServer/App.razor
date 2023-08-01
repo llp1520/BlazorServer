@@ -1,11 +1,7 @@
-﻿<CascadingAuthenticationState>
+﻿
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" >
-                <NotAuthorized>
-                    没有登录，<a href="/login">点击登陆</a>
-                </NotAuthorized>
-            </AuthorizeRouteView>
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
         </Found>
 
@@ -21,4 +17,3 @@
     <MudThemeProvider />
     <MudDialogProvider />
     <MudSnackbarProvider />
-</CascadingAuthenticationState>

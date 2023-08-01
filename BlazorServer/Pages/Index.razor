@@ -1,13 +1,14 @@
 ﻿@page "/"
 @page "/index"
-@attribute [Authorize]
+@*@attribute [Authorize]*@
 @using BlazorServer.Model;
 @using BlazorServer.Services;
+@using System.Security.Claims;
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
-<AuthorizeView>
+@*<AuthorizeView>
     <Authorized>
         验证通过，登录成功<br />
         用户名:@context.User.Identity.Name
@@ -15,5 +16,29 @@
     <NotAuthorized>
         验证失败，<a href="/login">点击登录</a>
     </NotAuthorized>
-</AuthorizeView>
+</AuthorizeView>*@
 
+@if (User is not null && User.Identity.IsAuthenticated )
+{
+<span>验证通过，登录成功</span>
+<br />
+    <span>用户名:@User.Identity.Name</span>
+}else{
+    <text>验证失败，<a href="/login">点击登录</a></text>
+}
+
+@inject AuthenticationStateProvider AutheProvider
+
+@code{
+    ClaimsPrincipal? User{ get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if ( firstRender )
+        {
+            var state= await AutheProvider.GetAuthenticationStateAsync();
+
+            User = state.User;
+        }
+    }
+}
