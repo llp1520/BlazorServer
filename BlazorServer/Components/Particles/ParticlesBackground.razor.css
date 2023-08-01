@@ -1,0 +1,13 @@
+﻿#particles-js {
+    position: absolute;
+    height: 100vh; 
+}
+
+.test {
+    font-size:20px;
+    color:white;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    /*transform: translate(-50%, -50%);*/
+}

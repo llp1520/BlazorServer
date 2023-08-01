@@ -1,0 +1,29 @@
+﻿
+
+<div id="particles-js">
+    <MudSwitch Class="test" @bind-Checked="@Particles_Enable" Label="背景动画开关" Color="Color.Success" @onclick="@(()=>{BackgroundSwitch();})" />
+
+    @ChildContent
+</div>
+
+@inject IJSRuntime JSRuntime
+@code {
+    [Microsoft.AspNetCore.Components.Parameter]
+    public Microsoft.AspNetCore.Components.RenderFragment ChildContent { get; set; }
+
+    private bool Particles_Enable;
+
+    private void BackgroundSwitch()
+    {
+        //JSRuntime.InvokeVoidAsync("startParticlesAnimation", Particles_Enable);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Particles_Enable)
+        {
+            await JSRuntime.InvokeVoidAsync("startParticlesAnimation");
+        }
+    }
+}
+

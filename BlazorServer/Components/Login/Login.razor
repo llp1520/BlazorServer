@@ -1,0 +1,39 @@
+﻿@using BlazorServer.Model;
+@using BlazorServer.Services;
+@layout LoginLayout
+
+<div class="main-page">
+    <div class="login">
+        <div class="login-top">
+            @message
+        </div>
+        <EditForm Model="Model" OnValidSubmit="SubmitAsync">
+            <DataAnnotationsValidator/>
+            <div class="login-center">
+                <div class="login-center-img"><img src="/img/name.png" /></div>
+                <div class="login-center-input">
+                    <input type="text" @bind-value="@Model.UserName" placeholder="请输入您的用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的用户名'" />
+                    <label class="login-center-input-text">用户名</label>
+                </div>
+            </div>
+            <ValidationMessage For="()=>Model.UserName" />
+
+            <div class="login-center">
+                <div class="login-center-img"><img src="/img/password.png" /></div>
+                <div class="login-center-input">
+                    <input type="password" @bind-value="@Model.Password" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'" />
+                    <label class="login-center-input-text">密码</label>
+                </div>
+            </div>
+            <ValidationMessage For="()=>Model.Password" />
+            <button class="login-button" type="submit">登录</button>
+        </EditForm>
+    </div>
+    <div class="sk-rotating-plane"></div>
+</div>
+
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthenticationService
+
